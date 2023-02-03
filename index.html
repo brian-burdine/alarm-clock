@@ -10,12 +10,12 @@
     
     <body>
         <header>
-            <h1>Alarm</h1>
+            <h1>Your Alarm Clock, on the Web!</h1>
         </header>
         <main>
             <!--Display the current time as Hours:Minutes:Seconds-->
             <section class="clock-face">
-                <h2>Current Time</h2>
+                <h3>Current Time</h3>
                 <div class="display-time">
                     <p class="hours"></p>
                     <span>:</span>
@@ -23,11 +23,20 @@
                     <span>:</span>
                     <p class="seconds"></p>
                 </div>
-                <div class="display-date">
                     <p class="date"></p>
-                </div>
+                <label for="12h">12 Hour Time</label>
+                <input type="radio" id="12h" name="hour-display" value="12h">
+                <label for="24h">24 Hour Time</label>
+                <input type="radio" id="24h" name="hour-display" value="24h" checked>
             </section>
-            <h2>Set an alarm</h2>
+            <section class="alarm">
+                <h3>Set an alarm</h3>
+                <input type="datetime-local" id="set-alarm">
+                <label for="alarm-on">On:</label>
+                <input type="radio" id="alarm-on" name="alarm-switch" value="on">
+                <label for="alarm-off">Off:</label>
+                <input type="radio" id="alarm-off" name="alarm-switch" value="off" checked>
+            </section>  
         </main>
         <script src="js/main.js"></script>
     </body>
