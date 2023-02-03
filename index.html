@@ -22,18 +22,21 @@
                     <p class="minutes"></p>
                     <span>:</span>
                     <p class="seconds"></p>
+                    <span id="am-pm" style="visibility: hidden;"></span>
                 </div>
                     <p class="date"></p>
                 <label for="12h">12 Hour Time</label>
-                <input type="radio" id="12h" name="hour-display" value="12h">
+                <input type="radio" id="12h" name="hour-display" value="12h" required>
                 <label for="24h">24 Hour Time</label>
                 <input type="radio" id="24h" name="hour-display" value="24h" checked>
             </section>
             <section class="alarm">
-                <h3>Set an alarm</h3>
+                <h2>Alarm</h2>
+                <label for="set-alarm">Set an alarm:</label>
                 <input type="datetime-local" id="set-alarm">
+                <br>
                 <label for="alarm-on">On:</label>
-                <input type="radio" id="alarm-on" name="alarm-switch" value="on">
+                <input type="radio" id="alarm-on" name="alarm-switch" value="on" required>
                 <label for="alarm-off">Off:</label>
                 <input type="radio" id="alarm-off" name="alarm-switch" value="off" checked>
             </section>  
