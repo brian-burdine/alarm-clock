@@ -24,16 +24,22 @@ function getAlarmTime(baseTime) {
 function displayTime () {
     // get the time and a reference to the elements to display it to
     let currentTime = new Date();
+    // elements to display the time
     const displayHours = document.querySelector(".hours");
     const displayMinutes = document.querySelector(".minutes");
     const displaySeconds = document.querySelector(".seconds");
+    const displayAMPM = document.getElementById("am-pm");
+    // element to display the date
     const displayDate = document.querySelector(".date");
     
+    // Arrays to convert Date indices to English representations
     const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday",
         "Friday", "Saturday"];
     const months = ["January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"];
     
+    // select the proper superscript for the date (like 1st, or 23rd) and
+    //   include html tag
     let superscript;
     if ( ( (currentTime.getDate() === 1) || (currentTime.getDate() === 21) ) || 
         (currentTime.getDate() === 31) ) {
@@ -48,6 +54,31 @@ function displayTime () {
         superscript = "<sup>th</sup>";
     }
 
+    // Combined date message to write to the date field of the clock
+    const displayDateMessage = days[currentTime.getDay()] + ", " + 
+        months[currentTime.getMonth()] + " " + currentTime.getDate() + 
+        superscript + ", " + currentTime.getFullYear();
+    
+    // Check to see what format to display hours in (12 or 24 hour clock)
+    // If 12 hour clock, find whether to display AM or PM and change hours
+    //   if necessary
+    // Otherwise, leave amPM false to check for display
+    let amPM = false;
+    if (document.getElementById('12h').checked == true) {
+        if (currentTime.getHours() == 0) {
+            amPM = "  AM";
+            currentTime.setHours(12);
+        }
+        else if (currentTime.getHours() < 12) {
+            amPM = "  AM";
+        } 
+        else if (currentTime.getHours() == 12) {
+            amPM = "  PM";
+        } else {
+            amPM = "  PM";
+            currentTime.setHours(currentTime.getHours() - 12);
+        }
+    }
 
     // display the current time, add a 0 to the digit if it's smaller than 10
     if (currentTime.getHours() < 10) {
@@ -65,11 +96,17 @@ function displayTime () {
     } else {
         displaySeconds.textContent = currentTime.getSeconds();
     }
+    // add AM or PM to the time if 12 hour time was selected
+    if (amPM) {
+        displayAMPM.innerText = amPM;
+        displayAMPM.style = "visibility: visible;";
+    } else {
+        displayAMPM.innerText = "";
+        displayAMPM.style = "visibility: hidden;";
+    }
 
     // display the current date
-    displayDate.innerHTML = days[currentTime.getDay()] + ", " + 
-        months[currentTime.getMonth()] + " " + currentTime.getDate() + 
-        superscript + ", " + currentTime.getFullYear();
+    displayDate.innerHTML = displayDateMessage;
 
     // check if alarm time has been reached
     // I don't know if it's faster to execute if you do one big && check or 
