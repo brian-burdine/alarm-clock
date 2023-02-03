@@ -27,11 +27,49 @@ function displayTime () {
     const displayHours = document.querySelector(".hours");
     const displayMinutes = document.querySelector(".minutes");
     const displaySeconds = document.querySelector(".seconds");
+    const displayDate = document.querySelector(".date");
+    
+    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday",
+        "Friday", "Saturday"];
+    const months = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"];
+    
+    let superscript;
+    if ( ( (currentTime.getDate() === 1) || (currentTime.getDate() === 21) ) || 
+        (currentTime.getDate() === 31) ) {
+        superscript = "<sup>st</sup>";
+    } else if ( (currentTime.getDate() === 2) || 
+        (currentTime.getDate() === 22) ) {
+        superscript = "<sup>nd</sup>";
+    } else if ( (currentTime.getDate() === 3) || 
+        (currentTime.getDate() === 23) ) {
+        superscript = "<sup>rd</sup>";
+    } else {
+        superscript = "<sup>th</sup>";
+    }
 
-    // display the current time
-    displayHours.textContent = currentTime.getHours();
-    displayMinutes.textContent = currentTime.getMinutes();
-    displaySeconds.textContent = currentTime.getSeconds();
+
+    // display the current time, add a 0 to the digit if it's smaller than 10
+    if (currentTime.getHours() < 10) {
+        displayHours.textContent =  '0' + currentTime.getHours();
+    } else {
+        displayHours.textContent = currentTime.getHours();
+    }
+    if (currentTime.getMinutes() < 10) {
+        displayMinutes.textContent =  '0' + currentTime.getMinutes();
+    } else {
+        displayMinutes.textContent = currentTime.getMinutes();
+    }
+    if (currentTime.getSeconds() < 10) {
+        displaySeconds.textContent =  '0' + currentTime.getSeconds();
+    } else {
+        displaySeconds.textContent = currentTime.getSeconds();
+    }
+
+    // display the current date
+    displayDate.innerHTML = days[currentTime.getDay()] + ", " + 
+        months[currentTime.getMonth()] + " " + currentTime.getDate() + 
+        superscript + ", " + currentTime.getFullYear();
 
     // check if alarm time has been reached
     // I don't know if it's faster to execute if you do one big && check or 
